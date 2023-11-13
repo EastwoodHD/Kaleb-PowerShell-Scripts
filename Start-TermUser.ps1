@@ -1,16 +1,31 @@
 <#
 .SYNOPSIS
-Term-User disables a user in the relevant systems. AD/365/AAD. 
+Term-UserScript: Disables an AD/365/AAD user and manages related processes.
+
 .DESCRIPTION
-Term-UserScript provides an All-in-one function that does a few things. First you must specify your domain credentials and validate them. 
-When running the Start-TermScript function, specify the AD User's SamAccountName, their Email Address (UserPrincipalName), and optionally their Manager's UPN.
-The function will then disable the user's AD account, block the sign-in status in AAD, convert their EXO account to a shared mailbox and assign delgate permissions to
-their manager (if the manager email was provided), it will then move the AD user to the 90-day holding organizational unit in AD and remove any AAD licenses. 
-Finally, it will invoke an AAD Delta Sync. 
+The Term-UserScript automates the deactivation of a user across multiple systems. It requires validated domain credentials to operate.
+
+The Start-TermScript function must be initiated with specific parameters:
+- AD User's SamAccountName.
+- User's Email Address (UserPrincipalName).
+- Optionally, the Manager's Email Address (UserPrincipalName).
+
+Function Operations:
+1. Disables the AD user account.
+2. Blocks sign-in status in Azure AD (AAD).
+3. Converts the user's Exchange Online (EXO) account to a shared mailbox.
+4. If provided, assigns delegate permissions to the user's manager.
+5. Moves the AD user to the 90-day holding organizational unit in AD.
+6. Removes any associated AAD licenses.
+7. Initiates an AAD Delta Sync.
+
 .PARAMETER -Username -Email -Manager
+Specifies the AD User's SamAccountName (-Username), their Email Address (-Email), and optionally, their Manager's Email Address (-Manager).
+
 .EXAMPLE
-Start-TermScript -Username AD.SamAccountName -Email user@example.com -Manager manager@example.com 
-.
+Start-TermScript -Username AD.SamAccountName -Email user@example.com -Manager manager@example.com
+Executes the script for the specified user, with email and manager's email.
+
 #>
 
 [CmdletBinding()]
